@@ -1,0 +1,48 @@
+# Search profiles configuration.
+# Define one or more target profiles. Secrets are interpolated from .env (e.g. ${VAR_NAME}).
+
+profiles:
+  - id: sample_profile                  # Unique identifier for the profile (letters, numbers, underscores, hyphens)
+    display_name: "Sample Profile"      # Human-readable name used in log messages, reports, and telegram alerts
+    enabled: true                       # Whether this profile actively monitors and notifies (true / false)
+    allow_senior: false                 # Allow senior/retiree housing (ab 60, betreutes Wohnen, Pflege). Recommended: false
+    allow_student: false                # Allow student housing, dorms, and WG rooms. Recommended: false
+    sources:                            # Housing companies to scrape. Leave empty [] to check all supported sources
+      - wbm
+      - gewobag
+      - gesobau
+      - howoge
+      - degewo
+      - stadtundland
+      - berlinovo
+      - inberlinwohnen
+    districts_include: []               # Whitelist of districts or ZIP codes, e.g. ["Neukölln", "10115"]. Empty [] = all
+    districts_exclude: []               # Blacklist of districts or ZIP codes, e.g. ["Spandau"]. Empty [] = none
+    rooms_min: null                     # Minimum room count, e.g. 1.0 or 1.5. null = no minimum limit
+    rooms_max: null                     # Maximum room count, e.g. 2.0 or 3.0. null = no maximum limit
+    size_min_m2: null                   # Minimum living space in square meters, e.g. 45.0. null = no minimum
+    size_max_m2: null                   # Maximum living space in square meters, e.g. 65.0. null = no maximum
+    warm_rent_max: null                 # Maximum total warm rent (Warmmiete) in EUR, e.g. 650.0. null = no limit
+    cold_rent_max: null                 # Maximum cold rent (Kaltmiete) in EUR, e.g. 500.0. null = no limit
+    wbs_required_ok: null               # true = accept WBS listings; false = reject WBS listings; null = accept both
+    wbs_categories_ok: []               # Allowed WBS income levels, e.g. [100] or [140, 180]. Empty [] = accept any
+    household_size: null                # Number of persons in household (used for cover letter template), e.g. 1 or 2
+    jobcenter_limit_warm: null          # Upper Warmmiete threshold covered by Jobcenter, e.g. 580.0. null = disabled
+    exclude_keywords: []                # Blacklist of keywords in description/title, e.g. ["Tausch", "Gewerbe"]
+    auto_apply: false                   # Enable automatic Powermail form submission for WBM listings (true / false)
+    applicant:                          # Applicant information for WBM Auto-Apply (used if auto_apply: true)
+      anrede: null                      # Salutation: "Herr" / "Frau" / "Divers"
+      vorname: null                     # First name
+      name: null                        # Last name
+      strasse: null                     # Street address with house number
+      plz: null                         # ZIP code (Postleitzahl)
+      ort: null                         # City (usually "Berlin")
+      email: null                       # Contact email address
+      telefon: null                     # Contact phone number
+      has_wbs: false                    # Does applicant hold a valid WBS certificate? (true / false)
+      wbs_income_level: null            # WBS income bracket: "100", "140", "160", "180", or "220"
+      wbs_rooms: null                   # Number of rooms approved on WBS certificate, e.g. "1" or "2"
+    telegram_chat_id: "${TELEGRAM_CHAT_ID}"         # Telegram chat ID interpolated from .env
+    telegram_bot_token: "${TELEGRAM_BOT_TOKEN}"     # Telegram bot token interpolated from .env
+    webhook_url: "${WEBHOOK_URL}"                   # Optional webhook endpoint for external automations
+    webhook_key: "${WEBHOOK_AUTH}"                  # Optional authorization header value for webhook

@@ -1,0 +1,29 @@
+# Secrets & Local Environment
+.env
+.env.local
+.env.*.local
+
+# Python / Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Databases & SQLite temporary files
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Test & coverage artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs & temp files
+*.log
+*.tmp
